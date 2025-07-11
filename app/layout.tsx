@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
 import clsx from "clsx";
+import { Suspense } from "react";
 
 import StoreProvider from "./StoreProvider";
 import { Providers } from "./providers";
@@ -28,11 +29,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <head />
             <body className={clsx("min-h-screen text-foreground overflow-hidden bg-background font-sans antialiased", notoSans.variable)}>
                 <StoreProvider>
-                    <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-                        <div className="relative flex flex-col h-screen">
-                            <main className="container mx-auto max-w-7xl flex-grow">{children}</main>
-                        </div>
-                    </Providers>
+                    <Suspense>
+                        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+                            <div className="relative flex flex-col h-screen">
+                                <main className="container mx-auto max-w-7xl flex-grow">{children}</main>
+                            </div>
+                        </Providers>
+                    </Suspense>
                 </StoreProvider>
             </body>
         </html>

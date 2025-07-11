@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectToDatabase } from "@/lib/mongodb";
 import Task from "@/models/Task";
 
-export async function POST(req: NextRequest, { params }: { params: { projectId: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ projectId: string }> }) {
     try {
         await connectToDatabase();
         const { projectId } = await params;
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest, { params }: { params: { projectId: 
     }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { projectId: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ projectId: string }> }) {
     try {
         await connectToDatabase();
         const { projectId } = await params;

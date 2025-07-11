@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/User";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         await connectToDatabase();
 
@@ -17,7 +17,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         if (decoded.role !== "ADMIN") return NextResponse.json({ message: "Forbidden" }, { status: 403 });
 
         const updateData = await req.json();
-        const { id } = params;
+        const { id } = await params;
 
         const user = await User.findById(id);
 
@@ -30,13 +30,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
         return NextResponse.json({ message: "User updated" });
     } catch (error) {
-        console.error(error);
-
-        return NextResponse.json({ message: "Server error" }, { status: 500 });
+        return NextResponse.json({ message: "Server error", error }, { status: 500 });
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         await connectToDatabase();
 
@@ -48,7 +46,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
         if (decoded.role !== "ADMIN") return NextResponse.json({ message: "Forbidden" }, { status: 403 });
 
-        const { id } = params;
+        const { id } = await params;
 
         const user = await User.findById(id);
 
@@ -59,8 +57,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
         return NextResponse.json({ message: "User soft-deleted" });
     } catch (error) {
-        console.error(error);
-
-        return NextResponse.json({ message: "Server error" }, { status: 500 });
+        return NextResponse.json({ message: "Server error", error }, { status: 500 });
     }
 }

@@ -16,9 +16,6 @@ const CustomCircularProgress: React.FC<CustomCircularProgressProps> = ({ value, 
     const normalizedValue = Math.min(value, maxValue);
     const overflowValue = Math.max(0, value - maxValue);
 
-    const basePercentage = (normalizedValue / maxValue) * 100;
-    const overflowPercentage = (overflowValue / maxValue) * 100;
-
     return (
         <div className="relative" style={{ width: size, height: size }}>
             <svg height={size} width={size}>

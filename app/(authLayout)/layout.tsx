@@ -4,8 +4,8 @@ import Header from "@/components/Header";
 import { getAuthFromCookies } from "@/utils/getAuthFromCookies";
 import AuthProvider from "@/providers/AuthProvider";
 
-const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-    const data = getAuthFromCookies();
+const AuthLayout = async ({ children }: Readonly<{ children: React.ReactNode }>) => {
+    const data = await getAuthFromCookies();
 
     return (
         <AuthProvider initialAuth={data}>
