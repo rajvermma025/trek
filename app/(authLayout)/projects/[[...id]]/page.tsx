@@ -94,12 +94,12 @@ export default function ProjectsPage() {
                         <Input label="Name" name="name" value={formData.name} onChange={handleChange} />
                         <Textarea label="Description" name="description" value={formData.description} onChange={handleChange} />
                         <Input label="Budget" name="budget" type="number" value={formData.budget} onChange={handleChange} />
-                        <Select label="Select a Manager" name="assignedToManager" selectedKeys={formData.assignedToManager} onChange={handleChange}>
+                        <Select label="Select a Manager" name="assignedToManager" selectedKeys={[formData.assignedToManager]} onChange={handleChange}>
                             {manager.map((data) => (
                                 <SelectItem key={data._id}>{data.firstName + " " + data.lastName}</SelectItem>
                             ))}
                         </Select>
-                        <Select label="Select an Employee" name="assignedToEmployee" selectedKeys={formData.assignedToEmployee} onChange={handleChange}>
+                        <Select label="Select an Employee" name="assignedToEmployee" selectedKeys={[formData.assignedToEmployee]} onChange={handleChange}>
                             {employee.map((data) => (
                                 <SelectItem key={data._id}>{data.firstName + " " + data.lastName}</SelectItem>
                             ))}

@@ -51,7 +51,7 @@ const TaskTable: React.FC<TaskTableProps> = ({ id, setIsAddingTask, isAddingTask
                             <TableCell className="p-2">
                                 {isEmployee ? (
                                     <Select
-                                        className="border px-2 py-1 rounded w-full"
+                                        className="px-2 py-1 rounded w-full"
                                         defaultSelectedKeys={[data.status]}
                                         disabled={data.status === "COMPLETED"}
                                         onBlur={(e) => {
